@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Conqueror Assessment</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Inter');
+        
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        
+        * {
+            margin: 0;
+        }
+        
+        body {
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            padding: 40px 10px;
+            font-family: "Inter", sans-serif;
+        }
+        
+        img, picture, video, canvas, svg {
+            display: block;
+            max-width: 100%;
+        }
+        
+        .container {
+            max-width: 800px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            column-gap: 20px;
+            row-gap: 50px;
+            justify-content: center;
+            margin: 0 auto;
+        }
+        
+        @media screen and (min-width: 250px) and (max-width: 480px) {
+            .container {
+                grid-template-columns: repeat(2, 1fr);
+                column-gap: 10px;
+            }
+        }
+        
+        @media screen and (min-width: 481px) and (max-width: 768px) {
+            .container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media screen and (min-width: 769px) and (max-width: 1024px) {
+            .container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        .item {
+            position: relative;
+            max-width: 204px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #D5D5D5;
+            border-radius: 5px;
+            background-position: 0 -1px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            cursor: pointer;
+        }
+        
+        .image-container {
+            margin-top: -55px;
+            max-width: 90%;
+            background: radial-gradient(50% 50% at 50% 50%, #000000 0%, rgba(0, 0, 0, 0.416667) 41.67%, rgba(0, 0, 0, 0) 100%);
+        }
+        
+        .body-container {
+            width: 100%;
+            padding: 15px 10px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .name {
+            font-weight: 700;
+            font-size: 18px;
+            line-height: 1.2;
+            margin-bottom: 12px;
+            color: black;
+        }
+        
+        .price {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 12px;
+            color: black;
+        }
+        
+        .distance {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #323232;
+            margin-bottom: 10px;
+        }
+        
+        .button {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            text-align: center;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 1.2;
+            color: white;
+            background-color: black;
+            border-radius: 5px;
+            border: 1px solid black;
+        }
+        
+        .selected-items-container {
+            display: none;
+            margin-top: 40px;
+            width: 100%;
+        }
+        
+        .selected-items {
+            margin-top: 20px;
+            border-top: 1px solid #D5D5D5;
+            padding-top: 10px;
+        }
+        
+        .selected-item {
+            font-weight: 500;
+            font-size: 16px;
+            color: #333333;
+            margin-bottom: 8px;
+        }
+        
+        .remove-button {
+            display: block;
+        }
+        
+        .total-cost {
+            font-weight: 700;
+            font-size: 18px;
+            line-height: 1.2;
+            margin-top: 20px;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a class="item" data-item="MountKilimanjaro" data-price="32.99" style="background-image: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 12%, rgb(255, 255, 255) 24%), url('static/img/img-1.png');
+}">
+            <div class="image-container">
+                <img src="static/img/KJ.png" alt="">
+            </div>
+            <div class="body-container">
+                <p class="name">Mount Kilimanjaro</p>
+                <p class="price">$32.99</p>
+                <p class="distance">60 mi / 97 km</p>
+                <div class="button">
+                    Select
+                </div>
+            </div>
+        </a>
+        <a class="item" data-item="AngkorWat" data-price="34.99" style="background-image: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 12%, rgb(255, 255, 255) 24%), url('static/img/img-2.png');
+}">
+            <div class="image-container">
+                <img src="static/img/AW.png" alt="">
+            </div>
+            <div class="body-container">
+                <p class="name">Angkor Wat</p>
+                <p class="price">$34.99</p>
+                <p class="distance">20 mi / 32 km</p>
+                <div class="button">
+                    Select
+                </div>
+            </div>
+        </a>
+        <a class="item" data-item="IncaTrail" data-price="31.99" style="background-image: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 12%, rgb(255, 255, 255) 24%), url('static/img/img-3.png');
+}">
+            <div class="image-container">
+                <img src="static/img/IT.png" alt="">
+            </div>
+            <div class="body-container">
+                <p class="name">Inca Trail</p>
+                <p class="price">$31.99</p>
+                <p class="distance">26 mi / 42 km</p>
+                <div class="button">
+                    Select
+                </div>
+            </div>
+        </a>
+        <a class="item" data-item="BerlinWall" data-price="36.99" style="background-image: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 12%, rgb(255, 255, 255) 24%), url('static/img/img-4.png');
+}">
+            <div class="image-container">
+                <img src="static/img/BW.png" alt="">
+            </div>
+            <div class="body-container">
+                <p class="name">Berlin Wall</p>
+                <p class="price">$36.99</p>
+                <p class="distance">30 mi / 48 km</p>
+                <div class="button">
+                    Select
+                </div>
+            </div>
+        </a>
+        <div class="selected-items-container">
+            <h2>Selected Items:</h2>
+            <div class="selected-items"></div>
+            <div class="total-cost">Total Cost: $<span id="totalCost">0.00</span></div>
+            <a id="orderLink" href="order.html">Go to Order Summary</a>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const items = document.querySelectorAll('.item');
+            const selectedItemsContainer = document.querySelector('.selected-items-container');
+            const selectedItemsList = selectedItemsContainer.querySelector('.selected-items');
+            const totalCostElement = document.getElementById('totalCost');
+            const orderLink = document.getElementById('orderLink');
+            
+            items.forEach(item => {
+                item.addEventListener('click', function () {
+                    item.classList.toggle('selected');
+                    updateSelectedItems();
+                    updateOrderLink();
+                });
+            });
+            
+            function updateSelectedItems() {
+                // Get all selected items
+                const selectedItems = document.querySelectorAll('.item.selected');
+                
+                // Clear the selected items container
+                selectedItemsList.innerHTML = '';
+                
+                // Loop through selected items and append to the container
+                selectedItems.forEach(selectedItem => {
+                    const itemName = selectedItem.querySelector('.name').textContent;
+                    const itemPrice = selectedItem.getAttribute('data-price');
+                    const selectedListItem = document.createElement('div');
+                    
+                    selectedListItem.classList.add('selected-item');
+                    selectedListItem.textContent = `${itemName} - $${itemPrice}`;
+                    
+                    // Add 'remove' button
+                    const removeButton = document.createElement('button');
+                    
+                    removeButton.textContent = 'Remove';
+                    removeButton.classList.add('remove-button');
+                    removeButton.addEventListener('click', function () {
+                        selectedItem.classList.remove('selected');
+                        updateSelectedItems();
+                        updateOrderLink();
+                    });
+                    
+                    // Append the item and 'remove' button to the container
+                    selectedListItem.appendChild(removeButton);
+                    selectedItemsList.appendChild(selectedListItem);
+                });
+                
+                // If there are selected items, show the container otherwise hide it
+                selectedItemsContainer.style.display = selectedItems.length > 0 ? 'block' : 'none';
+                
+                // Calculate and display the total cost
+                const totalCost = Array.from(selectedItems).reduce((total, selectedItem) => {
+                    const itemPrice = parseFloat(selectedItem.getAttribute('data-price'));
+                    return total + itemPrice;
+                }, 0);
+                totalCostElement.textContent = totalCost.toFixed(2);
+            }
+            
+            function updateOrderLink() {
+                // Get the selected items and their prices
+                const selectedItems = Array.from(document.querySelectorAll('.item.selected')).map(selectedItem => ({
+                    item: selectedItem.getAttribute('data-item'),
+                    price: parseFloat(selectedItem.getAttribute('data-price'))
+                }));
+                
+                // Generate the URL parameters
+                const selectedItemsParam = selectedItems.length > 0 ? selectedItems.map(item => `${encodeURIComponent(item.item)}:${item.price}`).join(',') : '';
+                
+                // Update the order link with the current selected items as URL parameters
+                orderLink.href = `order.html?selectedItems=${selectedItemsParam}`;
+            }
+            
+            // Initial update based on the current selected items
+            updateSelectedItems();
+            updateOrderLink();
+        });
+    </script>
+</body>
+</html>

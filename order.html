@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Summary</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Inter');
+        
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        
+        * {
+            margin: 0;
+        }
+        
+        body {
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            padding: 20px;
+            font-family: "Inter", sans-serif;
+            color: #333;
+        }
+        
+        .order-summary-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid #D5D5D5;
+        }
+        
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .order-summary {
+            margin-top: 20px;
+        }
+        
+        .order-summary-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .total-cost {
+            font-weight: 700;
+            font-size: 18px;
+            line-height: 1.2;
+            padding-top: 20px;
+            color: #333;
+        }
+        
+        #totalCost {
+            color: #ff5733;
+        }
+    </style>
+</head>
+<body>
+    <div class="order-summary-container">
+        <h2>Order Summary</h2>
+        <div class="order-summary"></div>
+        <div class="total-cost">Total Cost: $<span id="totalCost">0.00</span></div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const selectedItemsParam = urlParams.get('selectedItems');
+            
+            if (selectedItemsParam) {
+                // Decode URL params and split into an array of items with prices
+                const selectedItems = selectedItemsParam.split(',').map(itemInfo => {
+                    const [item, price] = itemInfo.split(':');
+                    return {item: decodeURIComponent(item), price: parseFloat(price)};
+                });
+                
+                // Update the order summary with the selected items
+                const orderSummaryContainer = document.querySelector('.order-summary');
+                selectedItems.forEach(item => {
+                    const orderSummaryItem = document.createElement('div');
+                    const priceElement = document.createElement('span');
+                   
+                    orderSummaryItem.className = 'order-summary-item';
+                    orderSummaryItem.textContent = `${item.item}`;
+                   
+                    priceElement.textContent = `$${item.price.toFixed(2)}`;
+                   
+                    orderSummaryItem.appendChild(priceElement);
+                    orderSummaryContainer.appendChild(orderSummaryItem);
+                });
+                
+                // Calculate and display the total cost
+                const totalCost = selectedItems.reduce((total, item) => total + item.price, 0);
+                document.getElementById('totalCost').textContent = totalCost.toFixed(2);
+            }
+        });
+    </script>
+</body>
+</html>
